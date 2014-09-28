@@ -22,7 +22,7 @@ Cell::~Cell()
 
 void Cell::DeployCells(int countX, int countY)
 {
-    colorDead = sf::Color(6,6,6,255);
+    colorDead = sf::Color(20,20,20,255);
     colorAlive = sf::Color(255,255,255,255);
 
     size.x = CellSize;
@@ -84,11 +84,180 @@ void Cell::Click(sf::Vector2i Pos)
         cells[CellX + CellY*numX].SetAlive(true);
 
 }
+
+void Cell::Reset()
+{
+    for(int i = 0; i <cells.size();i++)
+    {
+        cells[i].SetAlive(false);
+    }
+}
+
+
 void Cell::Update()
 {
-    for(int i = numX + 1; i< (cells.size() -numX); i++)
+    int offset = (numY - 1) * numX;
+    for(int i = 0; i < (cells.size()); i++)
     {
         int count = 0;
+        if(i == 0) //Ecke oben links
+        {
+            if(cells[i + 1].alive) //Rechts
+                count++;
+            if(cells[(i + numX )- 1].alive) //Links
+                count++;
+            if(cells[offset + 1].alive) //Oben Rechts
+                count++;
+            if(cells[offset].alive) //Oben Mitte
+                count++;
+            if(cells[(offset + numX) -1].alive) //Oben Links
+                count++;
+            if(cells[(i + numX) + 1].alive) //Unten Rechts
+                count++;
+            if(cells[i + numX].alive) //Unten Mitte
+                count++;
+            if(cells[(i + numX*2) - 1].alive) //Unten Links
+                count++;
+
+        }
+        else if (i == (numX - 1)) //Ecke oben Rechts
+        {
+            if(cells[(i-numX)+1].alive) //Rechts
+                count++;
+            if(cells[i - 1].alive) //Links
+                count++;
+            if(cells[(i + 1 +offset) - numX].alive) //Oben Rechts
+                count++;
+            if(cells[i + offset].alive) //Oben Mitte
+                count++;
+            if(cells[(i + offset)-1].alive) //Oben Links
+                count++;
+            if(cells[i+1].alive) //Unten Rechts
+                count++;
+            if(cells[i + numX].alive) //Unten Mitte
+                count++;
+            if(cells[(i + numX)-1].alive) //Unten Links
+                count++;
+
+        }
+        else if (i == offset)//Ecke unten Links
+        {
+            if(cells[i + 1].alive) //Rechts
+                count++;
+            if(cells[(i + numX) - 1].alive) //Links
+                count++;
+            if(cells[(i -numX)+ 1].alive) //Oben Rechts
+                count++;
+            if(cells[i - numX].alive) //Oben Mitte
+                count++;
+            if(cells[i-1].alive) //Oben Links
+                count++;
+            if(cells[(i-offset)+1].alive) //Unten Rechts
+                count++;
+            if(cells[i - offset].alive) //Unten Mitte
+                count++;
+            if(cells[(i - offset) + (numX - 1)].alive) //Unten Links
+                count++;
+        }
+        else if (i == ((offset + numX) - 1)) //Unten Rechts
+        {
+            if(cells[(i - numX) + 1].alive) //Rechts
+                count++;
+            if(cells[i - 1].alive) //Links
+                count++;
+            if(cells[i-(numX*2)+1].alive) //Oben Rechts
+                count++;
+            if(cells[i - numX].alive) //Oben Mitte
+                count++;
+            if(cells[(i-numX) -1].alive) //Oben Links
+                count++;
+            if(cells[(i- offset)-(numX-1)].alive) //Unten Rechts
+                count++;
+            if(cells[i - offset].alive) //Unten Mitte
+                count++;
+            if(cells[(i - offset)-1].alive) //Unten Links
+                count++;
+            std::cout <<"countUR: "<<count<<std::endl;
+        }
+
+        else if (i < numX) //Oben
+        {
+            if(cells[i + 1].alive) //Rechts
+                count++;
+            if(cells[i - 1].alive) //Links
+                count++;
+            if(cells[i + offset+ 1].alive) //Oben Rechts
+                count++;
+            if(cells[i + offset].alive) //Oben Mitte
+                count++;
+            if(cells[(i+ offset) -1].alive) //Oben Links
+                count++;
+            if(cells[(i + numX) + 1].alive) //Unten Rechts
+                count++;
+            if(cells[i + numX].alive) //Unten Mitte
+                count++;
+            if(cells[(i + numX)-1].alive) //Unten Links
+                count++;
+        }
+        else if(i > offset)  //Unten
+        {
+            if(cells[i + 1].alive) //Rechts
+                count++;
+            if(cells[i - 1].alive) //Links
+                count++;
+            if(cells[(i -numX)+ 1].alive) //Oben Rechts
+                count++;
+            if(cells[i - numX].alive) //Oben Mitte
+                count++;
+            if(cells[(i-numX) -1].alive) //Oben Links
+                count++;
+            if(cells[(i - offset) + 1].alive) //Unten Rechts
+                count++;
+            if(cells[i  - offset].alive) //Unten Mitte
+                count++;
+            if(cells[(i - offset)-1].alive) //Unten Links
+                count++;
+        }
+        else if((i % numX) == 0) //Links
+        {
+            if(cells[i + 1].alive) //Rechts
+                count++;
+            if(cells[(i+numX) - 1].alive) //Links
+                count++;
+            if(cells[(i -numX)+ 1].alive) //Oben Rechts
+                count++;
+            if(cells[i - numX].alive) //Oben Mitte
+                count++;
+            if(cells[i -1].alive) //Oben Links
+                count++;
+            if(cells[(i + numX) + 1].alive) //Unten Rechts
+                count++;
+            if(cells[i + numX].alive) //Unten Mitte
+                count++;
+            if(cells[(i + numX * 2)-1].alive) //Unten Links
+                count++;
+        }
+        else if (((i + 1) % numX) == 0)//Rechts
+        {
+                    if(cells[(i - numX) + 1].alive) //Rechts
+                        count++;
+                    if(cells[i - 1].alive) //Links
+                        count++;
+                    if(cells[(i - 2*numX)+ 1].alive) //Oben Rechts
+                        count++;
+                    if(cells[i - numX].alive) //Oben Mitte
+                        count++;
+                    if(cells[(i-numX) -1].alive) //Oben Links
+                        count++;
+                    if(cells[i + 1].alive) //Unten Rechts
+                        count++;
+                    if(cells[i + numX].alive) //Unten Mitte
+                        count++;
+                    if(cells[(i + numX)-1].alive) //Unten Links
+                        count++;
+        }
+        else if(i > numX && i < offset) //Mittleres Feld
+        {
         if(cells[i + 1].alive) //Rechts
             count++;
         if(cells[i - 1].alive) //Links
@@ -105,10 +274,16 @@ void Cell::Update()
             count++;
         if(cells[(i + numX)-1].alive) //Unten Links
             count++;
+        }
 
         if((count < 2) || (count >3))  live[i] = 1; //Cell will be killed
         if(count == 2) live[i] = 0; //Cell wont change
         if(count == 3) live[i] = 2;
+
+        //if(count == 0 || count == 2 || count == 4 || count == 6 || count == 8) //Kopierwelt
+          //  live[i] = 1;
+        //else
+          //  live[i] = 2;
 
 
     }
@@ -118,11 +293,4 @@ void Cell::Update()
         if(live[i] == 2) cells[i].SetAlive(true);
     }
 
-}
-void Cell::Reset()
-{
-    for(int i = 0; i <cells.size();i++)
-    {
-        cells[i].SetAlive(false);
-    }
 }

@@ -4,7 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    cell.cpp
+    cell.cpp \
+    menu.cpp \
+    button.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
@@ -18,7 +20,9 @@ INCLUDEPATH += D:/SFML2.1/SFML-2.1/include
 DEPENDPATH += D:/SFML2.1/SFML-2.1/include
 
 HEADERS += \
-    cell.h
+    cell.h \
+    menu.h \
+    button.h
 
 
 

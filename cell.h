@@ -7,7 +7,7 @@
 #define CellNumX        100
 #define CellNumY        100
 #define CellSize        10
-#define CellDistance    0
+#define CellDistance    1
 
 #define AnimTime 500
 
@@ -26,6 +26,7 @@ private:
     sf::RectangleShape      shape;
     static sf::Color        colorAlive;
     static sf::Color        colorDead;
+
     static sf::Vector2f     size;
     sf::Vector2f            position;
 
